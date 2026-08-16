@@ -22,8 +22,7 @@ pipeline {
                         variable: 'SONAR_TOKEN'
                     )]) {
                         sh '''
-                            mvn clean verify && \
-                            mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.2.0.4988:sonar \
+                            mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.2.0.4988:sonar \
                             -Dsonar.projectKey=jenkins-project \
                             -Dsonar.host.url="http://${SONAR_IP}:9000" \
                             -Dsonar.token="${SONAR_TOKEN}" \
