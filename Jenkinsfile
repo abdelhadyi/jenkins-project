@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Build & Sonar') {
             steps {
-                withCredentials([string(credentialsId: 'sonarqube-token-new', variable: 'sonar-token')]) {
+                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'sonar-token')])  {
                 sh 'mvn clean verify sonar:sonar \
                 -Dsonar.projectKey=jenkins-project \
                 -Dsonar.host.url="http://${SONAR_IP}:9000" \
