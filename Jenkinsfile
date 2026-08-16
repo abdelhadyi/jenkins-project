@@ -16,12 +16,19 @@ pipeline {
         }
         stage('Build & Sonar') {
             steps {
-                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'sonar-token')])  {
-                sh 'mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=jenkins-project \
-                -Dsonar.host.url="http://${SONAR_IP}:9000" \
-                -Dsonar.token="${sonar-token}" \
-                -Dsonar.qualitygate.wait=true'
+                dir('maven-src') {
+                    withCredentials([string(
+                        credentialsId: 'sonarqube-token',
+                        variable: 'sonar-token'
+                    )]) {
+                        sh '''
+                            mvn clean verify sonar:sonar \
+                            -Dsonar.projectKey=jenkins-project \
+                            -Dsonar.host.url="http://${SONAR_IP}:9000" \
+                            -Dsonar.token="${sonar-token}" \
+                            -Dsonar.qualitygate.wait=true
+                        '''
+                    }
                 }
             }
         }
