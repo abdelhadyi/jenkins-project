@@ -16,14 +16,11 @@ pipeline {
         }
         stage('Build & Verify') {
             steps {
-                dir('maven-src') {
                     sh 'mvn clean verify'
-                }
             }
         }
         stage('SonarQube Analysis') {
             steps {
-                dir('maven-src') {
                     withCredentials([string(
                         credentialsId: 'sonarqube-token', 
                         variable: 'SONAR_TOKEN'
@@ -35,8 +32,8 @@ pipeline {
                             -Dsonar.token="${SONAR_TOKEN}" \
                             -Dsonar.qualitygate.wait=true
                         '''
-                    }
                 }
+                
             }
         }
     }
