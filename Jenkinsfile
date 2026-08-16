@@ -5,7 +5,7 @@ pipeline {
     tools {
         maven maven3
     }
-    enviroment {
+    environment {
         SONAR_IP = '34.196.124.198' 
     }
     stages {
