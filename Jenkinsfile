@@ -14,14 +14,7 @@ pipeline {
                 sh 'trivy fs --exit-code 1 --severity HIGH,CRITICAL .'
             }
         }
-        stage('Build & Verify') {
-            steps {
-                dir('maven-src') {
-                    sh 'mvn clean verify'
-                }
-            }
-        }
-        stage('SonarQube Analysis') {
+        stage('Build, Test & SonarQube') {
             steps {
                 dir('maven-src') {
                     withCredentials([string(
@@ -29,6 +22,7 @@ pipeline {
                         variable: 'SONAR_TOKEN'
                     )]) {
                         sh '''
+                            mvn clean verify && \
                             mvn sonar:sonar \
                             -Dsonar.projectKey=jenkins-project \
                             -Dsonar.host.url="http://${SONAR_IP}:9000" \
