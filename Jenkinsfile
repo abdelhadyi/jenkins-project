@@ -1,9 +1,9 @@
 pipeline {
     agent {
-        label maven
+        label 'maven'
     }
     tools {
-        maven maven3
+        maven 'maven3'
     }
     environment {
         SONAR_IP = '34.196.124.198' 
