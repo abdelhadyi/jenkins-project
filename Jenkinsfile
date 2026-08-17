@@ -34,21 +34,21 @@ pipeline {
                 }
             }
         }
-        stage("build image"){
+        stage('build image'){
             steps{
                 sh 'docker build -t ${ecr_registry}/{repo}:${BUILD_NUMBER} -t ${ecr_registry}/{repo}:latest .'
             }
         }
-        stage("ECR-Login"){
+        stage('ECR-Login'){
             steps{
                 sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 383189130746.dkr.ecr.us-east-1.amazonaws.com'
             }
         }
-        stage("Push to ECR"){
-            sh 'docker push ${ecr_registry}/{repo}:${BUILD_NUMBER}'
-            sh 'docker push ${ecr_registry}/{repo}:latest'
+        stage('Push to ECR'){
+            steps {
+                sh 'docker push ${ecr_registry}/{repo}:${BUILD_NUMBER}'
+                sh 'docker push ${ecr_registry}/{repo}:latest'                
+            }
         }
-
-
     }
 }
