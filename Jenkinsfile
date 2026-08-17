@@ -47,6 +47,12 @@ pipeline {
             }
         }
 
+        stage('trivy image'){
+            steps {
+                sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL ${ecr_registry}/${repo}:${BUILD_NUMBER}'
+            }
+        }
+
         stage('Push to ECR'){
             steps {
                 sh 'docker push ${ecr_registry}/${repo}:${BUILD_NUMBER}'
