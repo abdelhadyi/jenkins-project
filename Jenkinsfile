@@ -7,6 +7,8 @@ pipeline {
     }
     environment {
         SONAR_IP = '34.196.124.198' 
+        ecr_registry = '383189130746.dkr.ecr.us-east-1.amazonaws.com'
+        repo = 'maven-app'
     }
     stages {
         stage("trivy fs") {
@@ -32,5 +34,21 @@ pipeline {
                 }
             }
         }
+        stage("build image"){
+            steps{
+                sh 'docker build -t ${ecr_registry}/{repo}:${BUILD_NUMBER} -t ${ecr_registry}/{repo}:latest .'
+            }
+        }
+        stage("ECR-Login"){
+            steps{
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 383189130746.dkr.ecr.us-east-1.amazonaws.com'
+            }
+        }
+        stage("Push to ECR"){
+            sh 'docker push ${ecr_registry}/{repo}:${BUILD_NUMBER}'
+            sh 'docker push ${ecr_registry}/{repo}:latest'
+        }
+
+
     }
 }
