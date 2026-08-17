@@ -1,5 +1,5 @@
 FROM eclipse-temurin:21
 WORKDIR /app
-COPY target/abdelhady-project-1.0.0.jar app.jar
+COPY maven-src/target/abdelhady-project-1.0.0.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
