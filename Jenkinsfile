@@ -71,7 +71,7 @@ pipeline {
                 sh 'git config --local user.name "abdelhadyi"'
                 sh 'git add kubernetes/deploy.yaml'
                 sh 'git commit -m "updating the image version to ${BUILD_NUMBER} version"'
-                sh 'git bransh'
+                sh 'git branch'
                 sh 'git push origin HEAD:main'
                 }
             }
