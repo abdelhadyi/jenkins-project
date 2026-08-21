@@ -59,5 +59,21 @@ pipeline {
                 sh 'docker push ${ecr_registry}/${repo}:latest'                
             }
         }
+        stage('update-yaml'){
+            steps {
+                sh 'sed -i "s|image: .*|image: ${ecr_registry}/${repo}:${BUILD_NUMBER}|g" kubernetes/deploy.yaml'
+            }
+        }
+        stage('git'){
+            steps {
+                withCredentials([gitUsernamePassword(credentialsId: 'GH-Token', gitToolName: 'Default')]) {
+                sh 'git config --local user.email "abdelhady.elsayedd@gmail.com"'
+                sh 'git config --local user.name "abdelhadyi"'
+                sh 'git add kubernetes/deploy.yaml'
+                sh 'git commit -m "updating the image version to ${BUILD_NUMBER} version"'
+                sh 'git push origin main'
+                }
+            }
+        }
     }
 }
