@@ -52,7 +52,6 @@ public class App {
         server.start();
     }
 
-    // simple helper method for tests
     public static String brandHtml() {
         return "<h1>Cloud With VarJosh</h1><p>Simple DevSecOps Demo App</p>";
     }
