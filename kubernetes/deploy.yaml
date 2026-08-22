@@ -24,7 +24,7 @@ spec:
               app: cwvj-devsecops-demo
       containers:
         - name: cwvj-devsecops-demo
-          image: 383189130746.dkr.ecr.us-east-1.amazonaws.com/maven-app:10
+          image: 383189130746.dkr.ecr.us-east-1.amazonaws.com/maven-app:12
           ports:
             - containerPort: 8080
 
