@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cwvj-devsecops-demo
+  name: jenkins-project
   labels:
-    app: cwvj-devsecops-demo
+    app: devsecops
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: cwvj-devsecops-demo
+      app: devsecops
   template:
     metadata:
       labels:
-        app: cwvj-devsecops-demo
+        app: devsecops
     spec:
       topologySpreadConstraints:
         - maxSkew: 1
@@ -21,9 +21,9 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app: cwvj-devsecops-demo
+              app: devsecops
       containers:
-        - name: cwvj-devsecops-demo
+        - name: devsecops-project
           image: 383189130746.dkr.ecr.us-east-1.amazonaws.com/maven-app:15
           ports:
             - containerPort: 8080
