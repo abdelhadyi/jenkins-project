@@ -6,7 +6,7 @@ pipeline {
         maven 'maven3'
     }
     environment {
-        SONAR_IP = '34.196.124.198' 
+        SONAR_IP = '98.81.53.19' 
         ecr_registry = '383189130746.dkr.ecr.us-east-1.amazonaws.com'
         repo = 'maven-app'
     }
